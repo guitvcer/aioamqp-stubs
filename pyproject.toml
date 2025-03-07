@@ -24,4 +24,4 @@ flake8 = "^7.1.2"
 ruff = "^0.9.9"
 wemake-python-styleguide = "^1.0.0"
 pre-commit = "^4.1.0"
-
+pytest-mypy-plugins = "^3.2.0"
