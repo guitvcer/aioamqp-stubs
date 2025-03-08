@@ -22,7 +22,7 @@ class _StreamWriter(asyncio.StreamWriter):
     def writelines(self, data: Iterable[bytes | bytearray | memoryview]) -> None: ...
     def write_eof(self) -> None: ...
 
-_Coro = Callable[[], Awaitable[None]]
+_Coro = Callable[[], Awaitable[Any]]
 
 class AmqpProtocol(asyncio.StreamReaderProtocol):
     CHANNEL_FACTORY: Type[Channel]
