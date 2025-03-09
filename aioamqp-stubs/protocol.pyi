@@ -1,13 +1,14 @@
 import asyncio
 from asyncio import BaseTransport, Task
 from logging import Logger
-from typing import Any, Awaitable, Callable, Iterable, Type
+from typing import Any, Awaitable, Callable, Iterable, NotRequired, Type, TypedDict
+from typing_extensions import Unpack
 
 from pamqp.commands import Connection
 from pamqp.common import FieldTable
 from pamqp.heartbeat import Heartbeat
 
-from .channel import Channel
+from .channel import Channel, _Callback as Callback
 from .frame import _Frame as Frame
 
 logger: Logger
@@ -24,12 +25,28 @@ class _StreamWriter(asyncio.StreamWriter):
 
 _Coro = Callable[[], Awaitable[Any]]
 
+class _ConnectionTunning(TypedDict):
+    channel_max: NotRequired[int]
+    frame_max: NotRequired[int]
+    heartbeat: NotRequired[int]
+
+class _AmqpProtocolKwargs(TypedDict):
+    on_error: NotRequired[Callable[[Exception], Any] | None]
+    client_properties: NotRequired[FieldTable]
+    channel_max: NotRequired[int]
+    frame_max: NotRequired[int]
+    heartbeat: NotRequired[int]
+
+class _AmqpProtocolChannelKwargs(TypedDict):
+    return_callback: NotRequired[Callback | None]
+
 class AmqpProtocol(asyncio.StreamReaderProtocol):
     CHANNEL_FACTORY: Type[Channel]
 
     _reader: asyncio.StreamReader
     _on_error_callback: Callable[[Exception], Any] | None
     client_properties: FieldTable
+    connection_tunning: _ConnectionTunning
     connecting: asyncio.Future
     connection_closed: asyncio.Event
     stop_now: asyncio.Event
@@ -52,7 +69,7 @@ class AmqpProtocol(asyncio.StreamReaderProtocol):
     channels_ids_free: set[int]
     _drain_lock: asyncio.Lock
 
-    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Unpack[_AmqpProtocolKwargs]) -> None: ...
     def connection_made(self, transport: BaseTransport) -> None: ...
     def eof_received(self) -> bool: ...
     def connection_lost(self, exc: Exception | None) -> None: ...
@@ -129,4 +146,4 @@ class AmqpProtocol(asyncio.StreamReaderProtocol):
         insist: bool = False,
     ) -> None: ...
     async def open_ok(self, frame: Any) -> None: ...
-    async def channel(self, **kwargs: Any) -> None: ...
+    async def channel(self, **kwargs: Unpack[_AmqpProtocolChannelKwargs]) -> None: ...
