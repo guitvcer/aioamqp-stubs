@@ -1,6 +1,6 @@
 [project]
 name = "aioamqp-stubs"
-version = "0.1.0"
+version = "0.15"
 description = "Stubs for aioamqp"
 authors = [
     {name = "guitvcer",email = "abdrakhman.galaxy.s2@gmail.com"}
@@ -11,7 +11,33 @@ requires-python = ">=3.10,<4.0"
 dependencies = [
     "aioamqp (>=0.15.0,<0.16.0)"
 ]
+keywords = [
+    "aioamqp",
+    "typing",
+    "types",
+    "stubs",
+    "mypy",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
 
+    "Intended Audience :: Developers",
+
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+
+    "Operating System :: OS Independent",
+
+    "Topic :: Software Development :: Libraries :: Python Modules",
+
+    "Typing :: Typed",
+]
+
+[project.urls]
+Repository = "https://github.com/guitvcer/aioamqp-stubs"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
