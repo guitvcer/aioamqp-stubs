@@ -1,7 +1,8 @@
 import asyncio
 import datetime
 from logging import Logger
-from typing import Any, Awaitable, Callable, Iterator, NotRequired, TypedDict
+from typing import Any, Awaitable, Callable, Iterator, TypedDict
+from typing_extensions import NotRequired
 
 from pamqp.commands import Basic, Channel as pChannel, Confirm, Exchange, Queue
 from pamqp.common import Arguments, FieldTable

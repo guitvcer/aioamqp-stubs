@@ -1,6 +1,7 @@
 from asyncio import Transport
 from ssl import SSLContext
-from typing import NotRequired, Type, Unpack
+from typing import Type
+from typing_extensions import NotRequired, Unpack
 
 from .protocol import AmqpProtocol, _AmqpProtocolKwargs as AmqpProtocolKwargs
 

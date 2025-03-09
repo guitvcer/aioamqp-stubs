@@ -1,8 +1,8 @@
 import asyncio
 from asyncio import BaseTransport, Task
 from logging import Logger
-from typing import Any, Awaitable, Callable, Iterable, NotRequired, Type, TypedDict
-from typing_extensions import Unpack
+from typing import Any, Awaitable, Callable, Iterable, Type, TypedDict
+from typing_extensions import NotRequired, Unpack
 
 from pamqp.commands import Connection
 from pamqp.common import FieldTable
